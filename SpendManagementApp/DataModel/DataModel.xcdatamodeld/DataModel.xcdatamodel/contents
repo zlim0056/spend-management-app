@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="24G231" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="AppNotification" representedClassName="AppNotification" syncable="YES">
+        <attribute name="amount1" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="amount2" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="message" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="budgets" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Budget" inverseName="notifications" inverseEntity="Budget"/>
+    </entity>
+    <entity name="Budget" representedClassName="Budget" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Category" inverseName="budgets" inverseEntity="Category"/>
+        <relationship name="notifications" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppNotification" inverseName="budgets" inverseEntity="AppNotification"/>
+    </entity>
+    <entity name="Category" representedClassName="Category" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="budgets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Budget" inverseName="categories" inverseEntity="Budget"/>
+        <relationship name="records" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Record" inverseName="categories" inverseEntity="Record"/>
+    </entity>
+    <entity name="ConversionRate" representedClassName="ConversionRate" syncable="YES">
+        <attribute name="code" optional="YES" attributeType="String"/>
+        <attribute name="isSub" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="rate" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+    </entity>
+    <entity name="Record" representedClassName="Record" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="conversionCode" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="location" optional="YES" attributeType="String"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <relationship name="categories" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="records" inverseEntity="Category"/>
+    </entity>
+</model>
